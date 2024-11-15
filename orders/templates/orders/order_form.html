@@ -7,5 +7,32 @@
 </head>
 <body>
     <h1>order Form</h1>
+
+
+    {% block content %}
+
+        <form method="POST">
+            {% csrf_token %}
+            {{ form.errors}}
+
+            <div>
+                {{ form.customer_name}}
+            </div>
+            
+            <div>
+                {{ form.product_name}}
+            </div>
+            <div>
+                {{ form.quantity}}
+            </div>
+
+            <div>
+                <button type="submit">Place Order</button>
+            </div>
+
+        </form>
+
+    {% endblock %}
+
 </body>
 </html>
