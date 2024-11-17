@@ -22,7 +22,7 @@ def new_order(request):
         if form.is_valid():
             form.save()
             messages.success(request, "Your order was placed")
-            form = OrderForm()
+            return redirect('orders_list')
     else:
         form = OrderForm()
 
@@ -31,6 +31,14 @@ def new_order(request):
 
 
 def edit_order(request):
+    post = get_object_or_404(Order, pk=id)
+    if request.method == "POST":
+        form = OrderForm(request.POST, instance=post)
+        if form.is_valid():
+            form.save()
+            messages.success(request, "Your order was placed")
+            form = OrderForm()
+
 
     return HttpResponse("Hello edit Order")
 
