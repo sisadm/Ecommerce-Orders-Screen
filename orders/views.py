@@ -30,19 +30,27 @@ def new_order(request):
 
 
 
-def edit_order(request):
+def edit_order(request, id):
     post = get_object_or_404(Order, pk=id)
+
     if request.method == "POST":
         form = OrderForm(request.POST, instance=post)
         if form.is_valid():
-            form.save()
+            post = form.save()
             messages.success(request, "Your order was placed")
-            form = OrderForm()
+
+    else: 
+        form = OrderForm(instance=post)
+
+    return render(request, 'orders/order_form.html', {'form': form, 'post': post})
 
 
-    return HttpResponse("Hello edit Order")
+def delete_order(request, id):
 
-
-def delete_order(request):
-
-    return HttpResponse("Hello delete Order")
+    
+    order = get_object_or_404(Order, id=id)
+    order.delete()
+    messages.success(request, "Order has been successfully deleted.")
+    return redirect('orders_list')
+    
+    
