@@ -1,0 +1,14 @@
+{% extends 'orders/order_list.html' %}
+
+{% block content %}
+    <p>Editing Order ID: {{ post.id }}</p>
+
+    <form method="POST" class="m-4">
+        {% csrf_token %}
+        {{ form.errors }}
+        {{ form.as_p }}
+        <button type="submit">Save Changes</button>
+    </form>
+
+    <a href="#" class="btn btn-danger">Delete</a>
+{% endblock %}
