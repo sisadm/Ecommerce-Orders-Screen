@@ -1,38 +1,22 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-    <h1>order Form</h1>
+{% extends 'orders/order_list.html' %}
 
+{% block content %}
 
-    {% block content %}
+    <h1 class="m-4">Order Form</h1>    
 
-        <form method="POST">
-            {% csrf_token %}
-            {{ form.errors}}
+    <form method="POST" class="m-4">
+        {% csrf_token %}
+        {{ form.errors}}
+        {% for field in form %}
 
-            <div>
-                {{ form.customer_name}}
-            </div>
-            
-            <div>
-                {{ form.product_name}}
-            </div>
-            <div>
-                {{ form.quantity}}
+            <div class="form">
+                <label for="{{ field.id_for_label}}">{{ field.label }}</label>
+                {{ field }}
             </div>
 
-            <div>
-                <button type="submit">Place Order</button>
-            </div>
+        {% endfor %}
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </form>
 
-        </form>
-
-    {% endblock %}
-
-</body>
-</html>
+      
+{% endblock %}
